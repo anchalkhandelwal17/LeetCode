@@ -15,7 +15,7 @@ class Solution {
             String r = s.substring(0, i + 1);
             if (m.contains(r)) {
                 if (solve(s.substring(i + 1), m)){
-                    dp.put(s,true);
+                 //   dp.put(s,true);
                     return true;
                 }
             }
