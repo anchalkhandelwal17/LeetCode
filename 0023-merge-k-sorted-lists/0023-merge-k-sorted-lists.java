@@ -32,7 +32,7 @@ class Solution {
             dummy.next = curr;
             dummy = dummy.next;
             ListNode next = curr.next;
-            curr.next = null;
+            //curr.next = null;
             if(next != null){
                 pq.add(next);
             }
