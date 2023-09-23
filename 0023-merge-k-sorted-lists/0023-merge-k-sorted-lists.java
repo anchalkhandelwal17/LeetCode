@@ -23,8 +23,8 @@ class Solution {
         ListNode dummy = head;
 
         for(ListNode node : lists){
-            if(node == null) continue;
-            pq.add(node);
+            if(node != null) 
+                pq.add(node);
         }
 
         while(!pq.isEmpty()){
@@ -32,7 +32,6 @@ class Solution {
             dummy.next = curr;
             dummy = dummy.next;
             ListNode next = curr.next;
-            //curr.next = null;
             if(next != null){
                 pq.add(next);
             }
