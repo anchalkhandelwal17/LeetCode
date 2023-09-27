@@ -15,49 +15,21 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
+        // using extra space
         
-        // step 1 : creating the copy nodes
-        Node itr = head;
-        Node front = head;
-
-        while(itr != null){
-            front = itr.next;
-            Node copy = new Node(itr.val);
-            itr.next = copy;
-            copy.next = front;
-            if(itr.next != null){
-                itr = itr.next.next;
-            } 
-        }
-
-        // step 2 : connecting the random pointers
-        itr = head;
-
-        while(itr != null){
-            if(itr.random != null){
-                itr.next.random = itr.random.next;
-            }
-            if(itr.next != null){
-                itr = itr.next.next;
-            }
-        }
-
-        // step 3 : separating the copied list and original list
-
-        Node copyHead = new Node(0);
-        Node dummy = copyHead;
-        itr = head;
-        front = head;
-
-        while(itr != null){
-            if(itr.next != null){
-                front = itr.next.next;
-            }
-            dummy.next = itr.next;
-            itr.next = front;
-            itr = front;
+        HashMap<Node, Node> map = new HashMap<>();
+        Node dummy = head;
+        while(dummy != null){
+            map.put(dummy, new Node(dummy.val));
             dummy = dummy.next;
         }
-        return copyHead.next;
+
+        dummy = head;
+        while(dummy != null){
+            map.get(dummy).next = map.get(dummy.next);
+            map.get(dummy).random = map.get(dummy.random);
+            dummy = dummy.next;
+        }
+        return map.get(head);
     }
 }
