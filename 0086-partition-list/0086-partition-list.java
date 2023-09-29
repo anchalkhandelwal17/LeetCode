@@ -10,36 +10,33 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
-        if(head == null || head.next == null){
-            return head;
-        }
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode prev = dummy;
-        Queue<ListNode> queue = new LinkedList<>();
-        while(head.next != null){
+
+     // The idea is to separate the list into two lists i.e list 1 with values < x and list 2 with values >= x and merge them afterwards.
+
+        ListNode smallerValuesHead = new ListNode(0);
+        ListNode biggerValuesHead = new ListNode(0);
+
+        ListNode smallerValuesList = smallerValuesHead;
+        ListNode biggerValuesList = biggerValuesHead;
+
+        while(head != null){
             if(head.val < x){
-                prev.next = head;
-                prev = prev.next;
+                // connecting all the nodes together with values < x
+                smallerValuesList.next = head;
+                smallerValuesList = smallerValuesList.next;
             }
             else{
-                queue.offer(head);
+                // connecting all the nodes together with values >= x
+                biggerValuesList.next = head;
+                biggerValuesList = biggerValuesList.next;
             }
             head = head.next;
         }
-        if(head.val < x){
-            prev.next = head;
-            prev = prev.next;
-        }
-        else{
-            queue.offer(head);
-        }
-        while(!queue.isEmpty()){
-            ListNode node = queue.poll();
-            prev.next = node;
-            prev = prev.next;
-        }
-        prev.next = null;
-        return dummy.next;
+        // merging the smaller values list and bigger values list
+        smallerValuesList.next = biggerValuesHead.next;
+
+        biggerValuesList.next = null;
+
+        return smallerValuesHead.next;
     }
 }
