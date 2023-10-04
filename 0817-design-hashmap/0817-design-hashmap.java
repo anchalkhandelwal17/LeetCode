@@ -1,19 +1,19 @@
 class MyHashMap {
-    int[] map = new int[10000001];
+    int[] map;
     public MyHashMap() {
-        Arrays.fill(map, -1);
+        map = new int[1000000+1];
     }
     
     public void put(int key, int value) {
-        map[key] = value;
+        map[key] = value+1;
     }
     
     public int get(int key) {
-        return map[key];
+        return map[key]-1;
     }
     
     public void remove(int key) {
-        map[key] = -1;
+        map[key] = 0;
     }
 }
 
