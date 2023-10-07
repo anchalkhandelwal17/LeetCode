@@ -40,7 +40,7 @@ class Solution {
             }
         }
 
-        return dp[idx][searchCost][maxVal] = res % mod;      
+        return dp[idx][searchCost][maxVal] = res;      
 
     }
 }
