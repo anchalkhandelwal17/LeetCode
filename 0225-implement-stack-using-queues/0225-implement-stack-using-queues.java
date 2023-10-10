@@ -1,21 +1,22 @@
 class MyStack {
-    // Implementing stack using only one queue
-    Deque<Integer> stack;
-
+    Queue<Integer> stack;
     public MyStack() {
         stack = new ArrayDeque<>();
     }
     
     public void push(int x) {
-        stack.addFirst(x);
+        stack.offer(x);
+        for(int i=0; i<stack.size()-1; i++){
+            stack.offer(stack.poll());
+        }
     }
     
     public int pop() {
-         return stack.removeFirst();
+        return stack.poll();
     }
     
     public int top() {
-        return stack.getFirst();
+        return stack.peek();
     }
     
     public boolean empty() {
