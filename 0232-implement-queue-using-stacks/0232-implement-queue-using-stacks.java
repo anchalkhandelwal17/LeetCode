@@ -12,26 +12,21 @@ class MyQueue {
     }
     
     public int pop() {
-        if(queue.isEmpty()){
-            transfer();
-        }
-         return queue.pop();
+        peek();
+        return queue.pop();
     }
     
     public int peek() {
-        if(queue.isEmpty() && !stack.isEmpty()){
-            transfer();
-        } return !queue.isEmpty() ? queue.peek() : -1;
+      if(queue.isEmpty()){
+          while(!stack.isEmpty()){
+              queue.push(stack.pop());
+          }
+      }
+      return queue.peek();
     }
     
     public boolean empty() {
         return stack.isEmpty() && queue.isEmpty();
-    }
-
-    public void transfer(){
-        while(!stack.isEmpty()){
-            queue.push(stack.pop());
-        }
     }
 }
 
