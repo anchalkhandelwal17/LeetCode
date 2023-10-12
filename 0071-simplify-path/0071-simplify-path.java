@@ -11,13 +11,17 @@ class Solution {
                 st.push(s[i]);
             }
         }
-        if(st.isEmpty()) return "/";
+        // if(st.isEmpty()) return "/";
 
-        StringBuilder sb = new StringBuilder();
-        while(!st.isEmpty()){
-            sb.insert(0, st.pop());
-            sb.insert(0, "/");
-        }
-        return sb.toString();    
+        // StringBuilder sb = new StringBuilder();
+        // while(!st.isEmpty()){
+        //     sb.insert(0, st.pop());
+        //     sb.insert(0, "/");
+        // }
+        // return sb.toString();    
+
+        return "/"+String.join("/", st);
+
+        // The String. join() method is a static method in the String class that concatenates one or more strings with a delimiter added between each String . This method joins the passed string with the delimiter passed to return a single string.
     }
 }
