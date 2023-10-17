@@ -1,26 +1,25 @@
 class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        // TC : O(n * 2 ^ n) + O(nlogn), SC : O(n * 2 ^ n)
+        List<List<Integer>> ans = new ArrayList<>();
         Arrays.sort(nums);
-        List<List<Integer>> list = new ArrayList<>();
-        helper(nums, 0, new ArrayList<>(), list);
-        return list;
+        solve(0, nums, new ArrayList<>(), ans);
+        return ans;
     }
 
-    public void helper(int[] nums, int i, List<Integer> temp, List<List<Integer>> list){
-        // base condition
+    public void solve(int i, int[] nums, List<Integer> list, List<List<Integer>> ans){
         if(i == nums.length){
-            list.add(new ArrayList<>(temp));
+            ans.add(new ArrayList<>(list));
             return;
         }
 
-        temp.add(nums[i]);
-        helper(nums, i+1, temp, list);   // pick
-        temp.remove(temp.size()-1);
-        // taking care of duplicates by simply ignoring them
+        list.add(nums[i]);
+        solve(i+1, nums, list, ans);
+        list.remove(list.size() - 1);
+
         while(i + 1 < nums.length && nums[i] == nums[i+1]){
-            i+=1;
+            i++;
         }
-        helper(nums, i+1, temp, list);   // not pick
+
+        solve(i+1, nums, list, ans);
     }
 }
