@@ -1,37 +1,36 @@
 class Solution {
     public List<List<String>> partition(String s) {
-        // T C: O( (2^n) *k*(n/2) )
-        // The space complexity can vary depending upon the length of the answer. k is the average length of the list of palindromes and if we have x such list of palindromes in our final answer. The depth of the recursion tree is n, so the auxiliary space required is equal to the O(n).
-        // SC : O(k * x)
+        
         List<List<String>> ans = new ArrayList<>();
-        helper(0, s, new ArrayList<>(), ans);
+        solve(0, s, new ArrayList<String>(), ans);
+
         return ans;
     }
 
-    public void helper(int idx, String s, List<String> temp, List<List<String>> ans){
-        // base condition
+    public void solve(int idx, String s, List<String> list, List<List<String>> ans){
         if(idx == s.length()){
-            ans.add(new ArrayList<>(temp));
+            ans.add(new ArrayList<>(list));
             return;
         }
+
         for(int i=idx; i<s.length(); i++){
-            // checking for every substring if it is a palindrome or not
-            if(isPalindrome(s, idx, i)){
-                temp.add(s.substring(idx, i+1));
-                helper(i+1, s, temp, ans);
-                temp.remove(temp.size()-1);
+
+            if(isPalin(s, idx, i)){
+                list.add(s.substring(idx, i+1));
+                solve(i+1, s, list, ans);
+                list.remove(list.size() -1);
             }
         }
     }
 
-    // function for checking if a substring is palindrome or not
-    public boolean isPalindrome(String s, int start, int end){
-        while(start <= end){
-            if(s.charAt(start) != s.charAt(end)){
+    public boolean isPalin(String str, int i, int j){
+
+        while( i<=j ){
+            if(str.charAt(i) != str.charAt(j)){
                 return false;
             }
-            start++;
-            end--;
+            i++;
+            j--;
         }
         return true;
     }
