@@ -1,21 +1,38 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        int[] char_cnt = new int[128];
+        
         ArrayList<Integer> ans = new ArrayList<>();
-        for(int i=0; i<p.length(); i++){
-            char_cnt[p.charAt(i)]++;
+        if(s.length() == 0 || p.length() == 0 || p.length() > s.length()){
+            return ans;
         }
-        for(int r=0, l=0; r<s.length(); r++){
-            char c = s.charAt(r);
-            char_cnt[c]--;
 
-            while(char_cnt[c] < 0){
-                char_cnt[s.charAt(l)]++;
-                l++;
+        int[] map = new int[26];
+        int right = 0;
+        int left = 0;
+
+        for(int i=0; i<p.length(); i++){
+            map[p.charAt(i) - 'a']++;
+        }
+
+        while(right < s.length()){
+
+            if(map[s.charAt(right) - 'a'] > 0){
+                map[s.charAt(right++) - 'a']--;
+
+                if(right - left == p.length()){
+                    ans.add(left);
+                }
             }
 
-            if(r - l + 1 == p.length()){
-                ans.add(l);
+
+            // else if(right == left){
+            //     right++;
+            //     left++;
+            // }
+
+            else{
+                map[s.charAt(left) - 'a']++;
+                left++;
             }
         }
         return ans;
