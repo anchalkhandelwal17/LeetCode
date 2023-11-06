@@ -8,9 +8,12 @@ class Solution {
 
         for(int end = 0; end<s.length(); end++){
 
-            maxFreq = Math.max(maxFreq , ++count[s.charAt(end) - 'A']);
+            ++count[s.charAt(end) - 'A'];
+           for(int i=0; i<26; i++){
+               maxFreq = Math.max(maxFreq , count[i]);
+           }
 
-            if(end - start + 1 - maxFreq > k){
+            while(end - start + 1 - maxFreq > k){
                 --count[s.charAt(start) - 'A'];
                 start++;
             }
