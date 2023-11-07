@@ -17,21 +17,25 @@ class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
         ArrayList<String> list = new ArrayList<>();
         if(root == null) return list;
-        allPaths(root, list, "");
+        StringBuilder sb = new StringBuilder();
+        allPaths(root, list, sb);
         return list;
     }
 
-    public void allPaths(TreeNode root, List<String> list, String s){
+    public void allPaths(TreeNode root, List<String> list, StringBuilder sb){
         if(root == null) return;
 
-        s += root.val;
+        int len = sb.length();
+        sb.append(root.val);
 
         if(root.left == null && root.right == null){
-            list.add(s);
+            list.add(sb.toString());
         }
 
-        s += "->";
-        allPaths(root.left, list, s);
-        allPaths(root.right, list, s);
+        sb.append("->");
+        allPaths(root.left, list, sb);
+        allPaths(root.right, list, sb);
+
+        sb.setLength(len);
     }
 }
