@@ -1,16 +1,11 @@
 class Solution {
     public int buyChoco(int[] prices, int money) {
         Arrays.sort(prices);
-        int start = 0;
-        int end = prices.length-1;
+        int chocolate_1 = prices[0];
+        int chocolate_2 = prices[1];
         
-        int maxMoneyLeft = -1;
-        while(start != end){
-            if(prices[start] + prices[end] <= money){
-                maxMoneyLeft =  money - (prices[start] + prices[end]);
-            }
-            end--;
-        }
-        return maxMoneyLeft == -1 ? money : maxMoneyLeft;
+        int moneyLeft = money - (chocolate_1 + chocolate_2);
+        
+        return moneyLeft >= 0 ? moneyLeft : money;
     }
 }
