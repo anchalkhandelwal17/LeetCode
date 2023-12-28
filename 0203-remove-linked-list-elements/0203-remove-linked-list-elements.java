@@ -14,15 +14,27 @@ class Solution {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode prev = dummy;
-        ListNode curr = head;
-        
-        while(curr != null){
-            if(curr.val == val){
-                prev.next = curr.next;
-            }
-            else prev = curr;
-            curr = curr.next;
-        }
+        helper(head, prev, val);
         return dummy.next;
+        
+        // while(curr != null){
+        //     if(curr.val == val){
+        //         prev.next = curr.next;
+        //     }
+        //     else prev = curr;
+        //     curr = curr.next;
+        // }
+        // return dummy.next;
+    }
+    
+    public void helper(ListNode curr, ListNode prev, int val){
+        if(curr == null) return;
+        
+        if(curr.val == val){
+            prev.next = curr.next;
+        }
+        else prev = curr;
+        
+        helper(curr.next, prev, val);
     }
 }
