@@ -9,40 +9,36 @@
  * }
  */
 class Solution {
+    ListNode start;
     public boolean isPalindrome(ListNode head) {
-        if(head == null){
-            return false;
+        start = head;
+        ListNode middle = findMiddle(head);
+        boolean ans = helper(middle);
+        return ans;
+    }
+    
+    public boolean helper(ListNode end){
+        if(end == null) return true;
+        
+        boolean flag = helper(end.next);
+        
+        if(flag){
+            if(start.val == end.val){
+                start = start.next;
+                return true;
+            }
         }
-
-        ListNode slow = head;
-        ListNode fast = head;
-
+        return false;
+    }
+    
+    public ListNode findMiddle(ListNode node){
+        ListNode slow = node;
+        ListNode fast = node;
+        
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode prev = null;
-        ListNode curr = slow;
-        ListNode next = curr.next;
-
-        while(curr != null){
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-            if(next != null){
-                next = next.next;
-            }
-        }
-
-        ListNode list1 = head;
-        ListNode list2 = prev;
-        while(list2 != null){
-            if(list1.val != list2.val){
-                return false;
-            }
-            list1 = list1.next;
-            list2 = list2.next;
-        }
-        return true;
+        return slow;
     }
 }
