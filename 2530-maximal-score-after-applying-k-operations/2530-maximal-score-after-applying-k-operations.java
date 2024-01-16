@@ -9,7 +9,7 @@ class Solution {
         for(int i=0; i<k; i++){
             double temp = pq.poll();
             ans += temp;
-            temp = (double)(temp/3);
+            temp = temp/3;
             pq.offer((int)(Math.ceil(temp)));
         }
         return ans;
