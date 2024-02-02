@@ -1,14 +1,16 @@
 class Solution {
     public List<Integer> sequentialDigits(int low, int high) {
+        
        List<Integer> list = new ArrayList<>();
         String s = "123456789";
+        int number = low;
+        int cnt = 0;
+        while(number != 0){
+            cnt++;
+            number /= 10;
+        }
         while(low <= high){
             int num = low;
-            int cnt = 0;
-            while(num != 0){
-                cnt++;
-                num /= 10;
-            }
             int i = 0;
             int j = cnt;
             while(j <= s.length()){
@@ -20,6 +22,7 @@ class Solution {
                 j++;
             }
             low = (int)(Math.pow(10, cnt));
+            cnt++;
         }
         return list;
     }
