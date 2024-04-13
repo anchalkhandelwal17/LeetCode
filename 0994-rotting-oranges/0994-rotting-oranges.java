@@ -3,7 +3,6 @@ class Solution {
         // DFS
         // TC : O(m*n)
         // SC : O(m*n)
-        
         int m = grid.length;
         int n = grid[0].length;
         int totalMinutes = 2;
