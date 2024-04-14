@@ -1,6 +1,6 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-
+        
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         int n = numCourses;
         for(int i=0; i<n; i++){
