@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/compare-version-numbers">165. Compare Version Numbers</a></h2><h3>Medium</h3><hr><p>Given two version numbers,&nbsp;<code>version1</code> and <code>version2</code>, compare them.</p>
+<h2><a href="https://leetcode.com/problems/compare-version-numbers/?envType=daily-question&envId=2024-05-03">165. Compare Version Numbers</a></h2><h3>Medium</h3><hr><p>Given two version numbers,&nbsp;<code>version1</code> and <code>version2</code>, compare them.</p>
 
 <ul>
 </ul>
