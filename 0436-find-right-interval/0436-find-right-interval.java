@@ -1,6 +1,7 @@
 class Solution {
     public int[] findRightInterval(int[][] intervals) {
-        
+        // TC : O(n*n)
+        // SC : O(n)
         int n = intervals.length;
         int[] ans = new int[n];
 
