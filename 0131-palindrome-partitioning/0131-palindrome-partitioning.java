@@ -1,31 +1,32 @@
 class Solution {
     public List<List<String>> partition(String s) {
-        
+        // TC : O(2^n * n)
+        // SC : O(k*x)
         List<List<String>> ans = new ArrayList<>();
-        solve(0, s, new ArrayList<String>(), ans);
-
+        helper(s, 0, new ArrayList<String>(), ans); 
         return ans;
     }
 
-    public void solve(int idx, String s, List<String> list, List<List<String>> ans){
-        if(idx == s.length()){
-            ans.add(new ArrayList<>(list));
+    public void helper(String s, int idx, List<String> list, List<List<String>> ans){
+        if(idx >= s.length()){
+            ans.add(new ArrayList<String>(list));
             return;
         }
 
         for(int i=idx; i<s.length(); i++){
-
-            if(isPalin(s, idx, i)){
-                list.add(s.substring(idx, i+1));
-                solve(i+1, s, list, ans);
-                list.remove(list.size() -1);
+            String str = s.substring(idx, i+1);
+            if(isPalin(str)){
+                list.add(str);
+                helper(s, i+1, list, ans);
+                list.remove(list.size()-1);
             }
         }
     }
+    public boolean isPalin(String str){
+        int i = 0;
+        int j = str.length()-1;
 
-    public boolean isPalin(String str, int i, int j){
-
-        while( i<=j ){
+        while(i <= j){
             if(str.charAt(i) != str.charAt(j)){
                 return false;
             }
