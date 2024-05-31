@@ -1,26 +1,18 @@
 class Solution {
     public int[] singleNumber(int[] nums) {
-     
-        Arrays.sort(nums);
-        
-        int idx = 0;
+        // TC : O(n)
+        // SC : O(n)
+        HashSet<Integer> set = new HashSet<>();
         int[] ans = new int[2];
-        
-        if(idx == 2) return ans;
-        
-        for(int i=1; i<nums.length; i++){
-            if(nums[i] != nums[i-1]){
-                ans[idx++] = nums[i-1];
+        int idx = 0;
+        for(int i=0; i<nums.length; i++){
+            if(set.contains(nums[i])){
+                set.remove(nums[i]);
             }
-            else{
-                i++;
-            }
+            else set.add(nums[i]);
         }
-        
-        if(nums[nums.length-1] != nums[nums.length-2]){
-            ans[idx] = nums[nums.length-1];
-        }
-        
+
+        for(int x : set) ans[idx++] = x;
         return ans;
     }
 }
