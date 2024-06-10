@@ -1,21 +1,19 @@
 class Solution {
     public int maximumUnits(int[][] boxTypes, int truckSize) {
-        
-        Arrays.sort(boxTypes, (a , b) -> Integer.compare(b[1] , a[1]));
-        
+        // TC : O(nlogn)
+        // SC : O(1)
+        Arrays.sort(boxTypes, (a, b) -> b[1] - a[1]);
+        int n = boxTypes.length;
         int maxUnits = 0;
-        int truckCapacity = truckSize;
-        
-        for(int i=0; i<boxTypes.length; i++){
-            int numberOfBoxes = boxTypes[i][0];
-            int numberOfUnitsPerBox = boxTypes[i][1];
-            
-            if(truckCapacity >= numberOfBoxes){
-                maxUnits +=  numberOfBoxes * numberOfUnitsPerBox;
-                truckCapacity -= numberOfBoxes;
+        for(int i=0; i<n; i++){
+            int a = boxTypes[i][0];
+            int b = boxTypes[i][1];
+            if(truckSize >= a){
+                maxUnits = maxUnits + (b * a);
+                truckSize -= a;
             }
             else{
-                maxUnits += truckCapacity * numberOfUnitsPerBox;
+                maxUnits = maxUnits + (truckSize * b);
                 break;
             }
         }
