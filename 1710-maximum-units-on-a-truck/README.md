@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/maximum-units-on-a-truck/">1710. Maximum Units on a Truck</a></h2><h3>Easy</h3><hr><div><p>You are assigned to put some amount of boxes onto <strong>one truck</strong>. You are given a 2D array <code>boxTypes</code>, where <code>boxTypes[i] = [numberOfBoxes<sub>i</sub>, numberOfUnitsPerBox<sub>i</sub>]</code>:</p>
+<h2><a href="https://leetcode.com/problems/maximum-units-on-a-truck/?envType=problem-list-v2&envId=p2lcmu1m">1710. Maximum Units on a Truck</a></h2><h3>Easy</h3><hr><p>You are assigned to put some amount of boxes onto <strong>one truck</strong>. You are given a 2D array <code>boxTypes</code>, where <code>boxTypes[i] = [numberOfBoxes<sub>i</sub>, numberOfUnitsPerBox<sub>i</sub>]</code>:</p>
 
 <ul>
 	<li><code>numberOfBoxes<sub>i</sub></code> is the number of boxes of type <code>i</code>.</li>
@@ -12,7 +12,8 @@
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
-<pre><strong>Input:</strong> boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4
+<pre>
+<strong>Input:</strong> boxTypes = [[1,3],[2,2],[3,1]], truckSize = 4
 <strong>Output:</strong> 8
 <strong>Explanation:</strong> There are:
 - 1 box of the first type that contains 3 units.
@@ -24,7 +25,8 @@ The total number of units will be = (1 * 3) + (2 * 2) + (1 * 1) = 8.
 
 <p><strong class="example">Example 2:</strong></p>
 
-<pre><strong>Input:</strong> boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10
+<pre>
+<strong>Input:</strong> boxTypes = [[5,10],[2,5],[4,7],[3,9]], truckSize = 10
 <strong>Output:</strong> 91
 </pre>
 
@@ -36,4 +38,3 @@ The total number of units will be = (1 * 3) + (2 * 2) + (1 * 1) = 8.
 	<li><code>1 &lt;= numberOfBoxes<sub>i</sub>, numberOfUnitsPerBox<sub>i</sub> &lt;= 1000</code></li>
 	<li><code>1 &lt;= truckSize &lt;= 10<sup>6</sup></code></li>
 </ul>
-</div>
