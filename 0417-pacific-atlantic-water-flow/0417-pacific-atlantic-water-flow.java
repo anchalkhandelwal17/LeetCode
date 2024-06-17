@@ -1,71 +1,24 @@
 class Solution {
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
-        // bfs
+        // dfs solution
 
         int m = heights.length;
         int n = heights[0].length;
+
         boolean[][] pacific = new boolean[m][n];
         boolean[][] atlantic = new boolean[m][n];
-        Queue<int[]> q1 = new LinkedList<>();
-        Queue<int[]> q2 = new LinkedList<>();
-        List<List<Integer>> ans = new ArrayList<>();
 
         for(int i=0; i<n; i++){
-            q1.offer(new int[]{0, i});
-            pacific[0][i] = true;
-            q2.offer(new int[]{m-1, i});
-            atlantic[m-1][i] = true;
+            dfs(0, i, heights, pacific, heights[0][i]);
+            dfs(m-1, i, heights, atlantic, heights[m-1][i]);
         }
 
         for(int i=0; i<m; i++){
-            q1.offer(new int[]{i, 0});
-            pacific[i][0] = true;
-            q2.offer(new int[]{i, n-1});
-            atlantic[i][n-1] = true;
+            dfs(i, 0, heights, pacific, heights[i][0]);
+            dfs(i, n-1, heights, atlantic, heights[i][n-1]);
         }
 
-        int[] rowDir = {-1, 0, 1, 0};
-        int[] colDir = {0, 1, 0, -1};
-        while(!q1.isEmpty()){
-
-            int currRow = q1.peek()[0];
-            int currCol = q1.peek()[1];
-            int currHeight = heights[currRow][currCol];
-            q1.poll();
-
-            for(int i=0; i<4; i++){
-                int nRow = currRow + rowDir[i];
-                int nCol = currCol + colDir[i];
-
-                if(nRow >= 0 && nRow < m && nCol >= 0 && nCol < n
-                && heights[nRow][nCol] >= currHeight && 
-                pacific[nRow][nCol] == false){
-                    pacific[nRow][nCol] = true;
-                    q1.offer(new int[]{nRow, nCol});
-                }
-            }
-        }
-
-        while(!q2.isEmpty()){
-
-            int currRow = q2.peek()[0];
-            int currCol = q2.peek()[1];
-            int currHeight = heights[currRow][currCol];
-            q2.poll();
-
-            for(int i=0; i<4; i++){
-                int nRow = currRow + rowDir[i];
-                int nCol = currCol + colDir[i];
-
-                if(nRow >= 0 && nRow < m && nCol >= 0 && nCol < n
-                && heights[nRow][nCol] >= currHeight && 
-                atlantic[nRow][nCol] == false){
-                    atlantic[nRow][nCol] = true;
-                    q2.offer(new int[]{nRow, nCol});
-                }
-            }
-        }
-
+        List<List<Integer>> ans = new ArrayList<>();
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
                 if(pacific[i][j] && atlantic[i][j]){
@@ -74,5 +27,20 @@ class Solution {
             }
         }
         return ans;
+    }
+
+    public void dfs(int i, int j, int[][] grid, boolean[][] flag, int prevH){
+        int m = grid.length;
+        int n = grid[0].length;
+        if(i < 0 || i >= m || j < 0 || j >= n || grid[i][j] < prevH
+            || flag[i][j]){
+            return;
+        }
+        flag[i][j] = true;
+
+        dfs(i-1, j, grid, flag, grid[i][j]);
+        dfs(i, j+1, grid, flag, grid[i][j]);
+        dfs(i+1, j, grid, flag, grid[i][j]);
+        dfs(i, j-1, grid, flag, grid[i][j]);
     }
 }
