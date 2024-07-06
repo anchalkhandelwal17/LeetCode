@@ -1,20 +1,22 @@
 class Solution {
     public int passThePillow(int n, int time) {
-        // TC : O(n)
-        // SC : O(1)
-        int curr = 0;
+        // TC : linear
+        // SC : constant
         int p = 1;
-        boolean dir = true;
-        while(curr != time){
-            if(dir) p++;
-            else p--;
+        int itr = 1;
+        boolean flag = true;
+        while(itr <= time){
+            if(flag){
+                ++p;
+            }
+            else --p;
             if(p == n){
-                dir = false;
+                flag = false;
             }
-            if(p == 1){
-                dir = true;
+            else if(p == 1){
+                flag = true;
             }
-            curr++;
+            itr++;
         }
         return p;
     }
