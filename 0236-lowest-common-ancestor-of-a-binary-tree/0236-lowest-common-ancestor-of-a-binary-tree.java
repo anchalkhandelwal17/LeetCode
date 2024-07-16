@@ -8,18 +8,37 @@
  * }
  */
 class Solution {
+    boolean pBool = false;
+    boolean qBool = false;
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null || root == p || root == q){
-            return root;
+        if(root == null) return root;
+        TreeNode ans = null;
+        Queue<TreeNode> que = new LinkedList<>();
+        que.offer(root);
+        while(!que.isEmpty()){
+            int size = que.size();
+            for(int i=0; i<size; i++){
+                TreeNode curr = que.poll();
+                dfs(curr, p, q);
+                if(pBool && qBool){
+                    ans = curr;
+                }
+                pBool = false;
+                qBool = false;
+
+                if(curr.left != null) que.offer(curr.left);
+                if(curr.right != null) que.offer(curr.right);
+            }
         }
+        return ans;
+    }
 
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
+    public void dfs(TreeNode root, TreeNode p, TreeNode q){
+        if(root == null) return;
+        if(root == p) pBool = true;
+        if(root == q) qBool = true;
 
-        if(left == null) return right;
-
-        else if(right == null) return left;
-
-        else return root;
+        dfs(root.left, p, q);
+        dfs(root.right, p, q);
     }
 }
