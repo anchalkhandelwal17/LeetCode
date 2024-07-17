@@ -14,18 +14,24 @@
  * }
  */
 class Solution {
-    boolean flag = true;
     public boolean isBalanced(TreeNode root) {
-        height(root);
-        return flag;
+        // TC : O(n)
+        // SC : O(h)
+        if(root == null) return true;
+        boolean[] flag = {true};
+        dfs(root, flag);
+        return flag[0];
     }
-    public int height(TreeNode root){
+
+    public int dfs(TreeNode root, boolean[] flag){
         if(root == null) return 0;
 
-        int leftH = height(root.left);
-        int rightH = height(root.right);
+        int left = 0;
+        int right= 0;
+        if(flag[0])left = dfs(root.left, flag);
+        if(flag[0])right = dfs(root.right, flag);
 
-        if(Math.abs(leftH - rightH) > 1) flag = false;
-        return 1 + Math.max(leftH, rightH);
+        if(Math.abs(left - right) > 1) flag[0] = false;;
+        return 1 + Math.max(left, right);
     }
 }
