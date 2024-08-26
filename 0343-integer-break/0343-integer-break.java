@@ -1,17 +1,19 @@
 class Solution {
     public int integerBreak(int n) {
-        if(n <= 3) return n-1;
+        // TC : quadratic
+        // SC : O(n)
+        int[] dp = new int[n+2];
+        Arrays.fill(dp, -1);
+        return solve(n, dp);
+    }
+    public int solve(int n, int[] dp){
+        if(n <= 2) return 1;
+        if(dp[n] != -1) return dp[n];
 
-        if(n % 3 == 0){
-            return (int)(Math.pow(3, n/3));
+        int max = 0;
+        for(int i=1; i<n; i++){
+            max = Math.max(max, Math.max(i * (n - i), i * solve(n - i, dp)));
         }
-
-        else if(n % 3 == 1){
-            return (int)(Math.pow(3, (n-4)/3) * 4);
-        }
-
-        else 
-            return (int)(Math.pow(3, (n-2)/3) * 2);
-
+        return dp[n] = max; 
     }
 }
