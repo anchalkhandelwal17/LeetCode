@@ -1,13 +1,14 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        // TC : O(n*n)
+        // TC : O(n^2)
         // SC : O(1)
+        int n = nums.length;
         int ans = Integer.MIN_VALUE;
-        for(int i=0; i<nums.length; i++){
-            int mul = 1;
-            for(int j=i; j<nums.length; j++){
-                mul *= nums[j];
-                ans = Math.max(ans, mul);
+        for(int i=0; i<n; i++){
+            int prd = 1;
+            for(int j=i; j<n; j++){
+                prd *= nums[j];
+                ans = Math.max(ans, prd);
             }
         }
         return ans;
