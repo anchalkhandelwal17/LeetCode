@@ -1,25 +1,47 @@
+// class Solution {
+//     public int numberOfSubarrays(int[] nums, int k) {
+        
+//         int i=0;
+//         int j=0;
+//         int ans = 0;
+//         int n = nums.length;
+//         int cnt = 0;
+//         int oddCnt = 0;
+//         while(j < n){
+//             if(nums[j] % 2 == 1) {
+//                 oddCnt++;
+//                 cnt = 0;
+//             }
+
+//             while(i <= j && oddCnt == k){
+//                 if(nums[i] % 2 == 1) oddCnt--;
+//                 i++;
+//                 cnt++;
+//             }
+//             j++;
+//             ans = ans + cnt;
+//         }
+//         return ans;
+//     }
+// }
+
 class Solution {
     public int numberOfSubarrays(int[] nums, int k) {
-        HashMap<Integer, Integer> pref_sum = new HashMap<>();
-
-        int nice = 0;
-        int ans = 0;
-
-        for(int i=0; i<nums.length; i++){
-
-            if(nums[i] % 2 == 1){
-                nice++;
+        // TC : O(n + n)
+        // SC : O(1)
+        int i=0, j=0, n=nums.length;
+        int cnt = 0, oddCnt = 0, ans = 0;
+        while(j < n){
+            if(nums[j] % 2 == 1){
+                oddCnt++;
+                cnt = 0;
             }
-
-            if(pref_sum.containsKey(nice-k)){
-                ans += pref_sum.get(nice - k);
+            while(i <= j && oddCnt == k){
+                if(nums[i++] % 2 == 1) oddCnt--;
+                cnt++;
             }
-
-            if(nice == k){
-                ans++;
-            }
-
-            pref_sum.put(nice, pref_sum.getOrDefault(nice, 0)+1);
+            ans += cnt;
+            j++;
         }
         return ans;
     }
