@@ -1,32 +1,35 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        // TC : O(quadratic)
-        // SC : O(n * sum/2);
-
+        // TC : quadratic
+        // SC : O(n * sum/2)
         int sum = 0;
-        int n = nums.length;
-        for(int i=0; i<n; i++) sum += nums[i];
-        Boolean[][] dp = new Boolean[n][sum/2+1];
-        
-        return solve(n-1, nums, 0, sum, dp);
+        for(int x : nums) sum += x;
+
+        if(sum % 2 != 0) return false;
+        Boolean[][] dp = new Boolean[nums.length+2][sum/2+2];
+
+        return solve(0, nums, 0, sum, dp);
     }
 
-    public boolean solve(int i, int[] nums, int currSum, int totalSum, Boolean[][] dp){
-        if(currSum - totalSum == 0) return true;
-        if(i < 0 || currSum > totalSum) return false;
+    public boolean solve(int i, int[] nums, int currSum, int sum, Boolean[][] dp){
+        if(currSum - sum == 0) return true;
+        if(i >= nums.length || currSum > sum) return false;
         if(dp[i][currSum] != null) return dp[i][currSum];
 
-        boolean take = solve(i-1, nums, currSum + nums[i], totalSum - nums[i], dp);
-        boolean not_take = solve(i-1, nums, currSum, totalSum, dp);
+        boolean not_take = solve(i+1, nums, currSum, sum, dp);
+        boolean take = false;
 
-        return dp[i][currSum] = (take || not_take);
+        if(currSum <= sum){
+            take = solve(i+1, nums, currSum + nums[i], sum - nums[i], dp);
+        }
+
+        return dp[i][currSum] = take || not_take;
     }
 }
 
-// first calc the total sum of arr
-// if at any point of time in our rec we get currSum - totalSum == 0 return true
-// base case would be 
-    // a. if(currSum - totalSum == 0) return true
-    // b. if(i < 0) return false
-// recurrenece => f(i) = f(take, not_Take) dp;
-// then memoize , dp solution is ready
+// if the sum of the elem of nums is odd then
+// no matter what we do we won't be able to partition the array
+// but if the sum is even then we may or may not partition the array
+// f(i, currSum, sum) = take || not_take
+// no. of changing parameters are three in recursion
+// so we will be having in total 3 states
