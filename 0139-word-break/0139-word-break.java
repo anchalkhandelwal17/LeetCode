@@ -1,29 +1,37 @@
 class Solution {
-    private Map<String,Boolean> dp;
     public boolean wordBreak(String s, List<String> wordDict) {
-        dp = new HashMap<>();
-
-        return helper(s, new HashSet<>(wordDict));
+        // TC : O(n)
+        // SC : O(n)
+        int n = wordDict.size();
+        HashSet<String> set = new HashSet<>();
+        HashMap<Integer, Boolean> dp = new HashMap<>();
+        for(int i=0; i<n; i++){
+            String str = wordDict.get(i);
+            set.add(str);
+        }
+        return solve(0, s, set, dp); 
     }
 
-    public boolean helper(String s, HashSet<String> set){
-        if(s.length() == 0){
+    public boolean solve(int i, String s, HashSet<String> set,
+     HashMap<Integer, Boolean> dp){
+        // base condition
+        if(i >= s.length()){
             return true;
         }
 
-        if(dp.containsKey(s)){
-            return dp.get(s);
+        if(dp.containsKey(i)){
+            return dp.get(i);
         }
-        for(int i=0; i<s.length(); i++){
-            String st = s.substring(0, i+1);
-            if(set.contains(st)){
-                if(helper(s.substring(i+1), set)){
-                    dp.put(s, true);
+
+        for(int idx=i; idx<s.length(); idx++){
+            String str = s.substring(i, idx+1);
+            if(set.contains(str)){
+                if(solve(idx+1, s, set, dp)){
                     return true;
                 }
             }
         }
-        dp.put(s, false);
+        dp.put(i, false);
         return false;
     }
 }
