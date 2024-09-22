@@ -1,47 +1,50 @@
 class Solution {
     public String minWindow(String s, String t) {
-
-        if(s.length() < t.length() || s.length() == 0 || t.length() == 0){
+        // TC : O(m + n)
+        // SC : O(n)
+        int m = s.length();
+        int n = t.length();
+        if (m < n)
             return "";
-        }   
-        
-        HashMap<Character, Integer> map = new HashMap<>();
 
-        for(int i=0; i<t.length(); i++){
-            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0)+1);
+        int size = Integer.MAX_VALUE;
+        int start = -1;
+        int end = -1;
+        int cnt = 0;
+        int i = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int k=0; k<n; k++){
+            map.put(t.charAt(k), map.getOrDefault(t.charAt(k), 0)+1);
         }
 
-        int left = 0;
-        int minLeft = 0;
-        int minLen = s.length()+1;
-        int cnt = 0;
+        for(int j=0; j<m; j++){
+            if(map.containsKey(s.charAt(j))){
+                map.put(s.charAt(j), map.getOrDefault(s.charAt(j), 0)-1);
 
-        for(int right = 0; right<s.length(); right++){
-            if(map.containsKey(s.charAt(right))){
-                map.put(s.charAt(right),map.get(s.charAt(right))-1);
-                if(map.get(s.charAt(right)) >= 0){
+                if(map.get(s.charAt(j)) >= 0){
                     cnt++;
                 }
             }
 
-            while(cnt == t.length()){
+            while(cnt == n){
 
-                if(right - left + 1 < minLen){
-                    minLeft = left;
-                    minLen = right - left + 1;
+                if(j - i + 1 < size){
+                    size = j - i + 1;
+                    start = i;
+                    end = j;
                 }
 
-                if(map.containsKey(s.charAt(left))){
-                    map.put(s.charAt(left),map.get(s.charAt(left))+1);
+                if(map.containsKey(s.charAt(i))){
+                     map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
 
-                    if(map.get(s.charAt(left)) > 0){
+                     if(map.get(s.charAt(i)) > 0){
                         cnt--;
-                    }
+                     }
                 }
-                left++;
+
+                i++;
             }
         }
-
-        return minLen == s.length()+1 ? "" : s.substring(minLeft, minLeft + minLen);
+        return size == Integer.MAX_VALUE ? "" : s.substring(start, end+1);
     }
 }
