@@ -1,18 +1,19 @@
 class Solution {
     public String reverseWords(String s) {
-       // To split a string by space or multiple space between words, use split("\\s+")
-       // to remove the leading and trailing space from string use trim()
+        
+        s = s.trim();
+        String[] str = s.split("\\s+");
+        // System.out.println(Arrays.toString(str));
 
-       String[] str_split = s.trim().split("\\s+");
+        StringBuilder ans = new StringBuilder();
+        int n = str.length;
 
-       StringBuilder ans = new StringBuilder();
+        for(int i=n-1; i>=0; i--){
+            String curr = str[i];
 
-       for(int i=str_split.length-1; i>=0; i--){
-           ans.append(str_split[i]);
-           if(i > 0){
-               ans.append(" ");
-           }
-       }
-       return ans.toString();
+            ans.append(curr);
+            if(i != 0) ans.append(" ");
+        }
+        return ans.toString();
     }
 }
