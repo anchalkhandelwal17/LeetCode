@@ -1,33 +1,59 @@
+// class Solution {
+//     public int compareVersion(String version1, String version2) {
+
+//         String[] a = version1.split("\\.");
+//         String[] b = version2.split("\\.");
+
+//         int i = 0, j = 0, m = a.length, n = b.length;
+
+//         while (i < m && j < n) {
+
+//             while (i < m && a[i].equals("0"))
+//                 i++;
+//             while (j < n && b[j].equals("0"))
+//                 j++;
+
+//             if (i < m && j < n) {
+//                 if (Integer.valueOf(a[i]) > Integer.valueOf(b[j]))
+//                     return 1;
+//                 else if (Integer.valueOf(a[i]) < Integer.valueOf(b[j]))
+//                     return -1;
+//             }
+
+//             i++;
+//             j++;
+//         }
+
+//         while (i < m) {
+//             if (Integer.valueOf(a[i]) > 0)
+//                 return 1;
+//             i++;
+//         }
+//         while (j < n) {
+//             if (Integer.valueOf(b[j]) > 0)
+//                 return -1;
+//             j++;
+//         }
+//         return 0;
+//     }
+// }
+
 class Solution {
     public int compareVersion(String version1, String version2) {
-        // TC : O(m + n)
-        // SC : O(1)
-        int i = 0, j = 0;
-        int m = version1.length(), n = version2.length();
+        String[] a = version1.split("\\.");
+        String[] b = version2.split("\\.");
 
-        while (i < m || j < n) {
+        int m = a.length, n = b.length;
+        int maxLength = Math.max(m, n);
 
-            int val1 = 0;
-            int val2 = 0;
+        for (int i = 0; i < maxLength; i++) {
+            int num1 = i < m ? Integer.parseInt(a[i]) : 0;
+            int num2 = i < n ? Integer.parseInt(b[i]) : 0;
 
-            while(i < m && version1.charAt(i) != '.'){
-                val1 = val1 * 10 + version1.charAt(i)-'0';
-                i++;
-            }
-            while(j < n && version2.charAt(j) != '.'){
-                val2 = val2 * 10 + version2.charAt(j)-'0';
-                j++;
-            }
-
-            if(val1 > val2){
-                return 1;
-            }
-            else if(val1 < val2){
-                return -1;
-            }
-            i++;
-            j++;
+            if (num1 > num2) return 1;
+            if (num1 < num2) return -1;
         }
+
         return 0;
     }
 }
