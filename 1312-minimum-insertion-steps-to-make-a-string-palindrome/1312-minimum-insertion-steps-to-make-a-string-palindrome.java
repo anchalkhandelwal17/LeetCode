@@ -36,11 +36,11 @@ class Solution {
 
         // if chars at index i and j do not matches them add matching char to right side
         // adding cost of 1
-        int addSameCharBothSide = 1 + solve(i+1, j, s, dp);
+        int addSameCharRightSide = 1 + solve(i+1, j, s, dp);
 
         // return min of all the operations
         return dp[i][j] = Math.min(addSameCharBothTheSides,
-                Math.min(addSameCharLeftSide, addSameCharBothSide));
+                Math.min(addSameCharLeftSide, addSameCharRightSide));
     }
 }
 
