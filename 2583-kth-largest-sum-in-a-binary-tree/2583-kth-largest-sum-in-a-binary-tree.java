@@ -15,25 +15,29 @@
  */
 class Solution {
     public long kthLargestLevelSum(TreeNode root, int k) {
-        // TC : O(nlogn)
-        // SC : O(n + total levels)
-        List<Long> levelsSum = new ArrayList<>();
+        // TC : O(n + nlogk)
+        // SC : O(n + k)
+        if(root == null) return -1;
         Queue<TreeNode> q = new LinkedList<>();
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+
         q.offer(root);
-        
+
         while(!q.isEmpty()){
-            long sum = 0;
             int size = q.size();
-            
+            long currSum = 0;
+
             for(int i=0; i<size; i++){
                 TreeNode curr = q.poll();
-                sum += curr.val;
+
+                currSum += curr.val;
                 if(curr.left != null) q.offer(curr.left);
                 if(curr.right != null) q.offer(curr.right);
+                
             }
-            levelsSum.add(sum);
+            pq.offer(currSum);
+            if(pq.size() > k) pq.poll();
         }
-        Collections.sort(levelsSum);
-        return levelsSum.size() < k ? -1 : levelsSum.get(levelsSum.size() - k);
+        return pq.size() < k ? -1 : pq.peek();
     }
 }
