@@ -5,17 +5,24 @@ class Solution {
         StringBuilder ans = new StringBuilder();
         int n = word.length();
 
-        int j = 0;
-        while(j < n){
-            int cnt = 1;
-            while(j+1 < n && word.charAt(j) == word.charAt(j+1) && cnt < 9){
+        char prev = word.charAt(0);
+        int j = 1;
+        int cnt = 1;
+        while (j < n) {
+            char curr = word.charAt(j);
+
+            if (prev == curr && cnt < 9) {
                 cnt++;
-                j++;
+            } else {
+                ans.append(cnt);
+                ans.append(prev);
+                prev = curr;
+                cnt = 1;
             }
-            ans.append(cnt);
-            ans.append(word.charAt(j));
             j++;
         }
+        ans.append(cnt);
+        ans.append(prev);
         return ans.toString();
     }
 }
