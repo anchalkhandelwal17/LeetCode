@@ -18,7 +18,7 @@ class Solution {
             else{
                 if(map.size() == k){
                     ans = Math.max(ans, sum);
-                    System.out.println(ans);
+                    // System.out.println(ans);
                 }
 
                 sum -= nums[i];
