@@ -1,21 +1,27 @@
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         // TC : O(n)
-        // SC : O(n) 
-        int maxLen = Integer.MIN_VALUE;
-        Map<Character, Integer> map = new HashMap<>();
-        int right = 0;
-        int left = 0;
-        while(right < s.length()){
-            char c = s.charAt(right);
+        // SC : O(n)
+
+        int n = s.length();
+        int i=0;
+        int j=0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        int ans = Integer.MIN_VALUE;
+
+        while(j < n){
+            char c = s.charAt(j);
+
             if(map.containsKey(c)){
-                left = Math.max(left, map.get(c) + 1);
+                i = Math.max(i, map.get(c) + 1);
             }
 
-            map.put(c, right);
-            maxLen = Math.max(maxLen, right - left + 1);
-            right++;
+            ans = Math.max(ans, j - i + 1);
+            map.put(c, j);
+            j++;
         }
-        return maxLen == Integer.MIN_VALUE ? 0 : maxLen;
+        return ans == Integer.MIN_VALUE ? 0 : ans;
     }
 }
+
+// sliding window can be used along with hashmap
