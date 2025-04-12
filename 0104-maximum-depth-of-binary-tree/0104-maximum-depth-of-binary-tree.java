@@ -17,16 +17,12 @@ class Solution {
     public int maxDepth(TreeNode root) {
         // TC : O(n)
         // SC : O(h)
-        int h = dfs(root);
-        return h;
-    }
-
-    public int dfs(TreeNode root){
         if(root == null) return 0;
 
-        int left = dfs(root.left);
-        int right = dfs(root.right);
+        int left = 1 + maxDepth(root.left);
 
-        return 1 + Math.max(left, right);
+        int right = 1 + maxDepth(root.right);
+
+        return Math.max(left, right);
     }
 }
