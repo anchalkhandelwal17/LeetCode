@@ -1,31 +1,30 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
         // TC : O(n * amount)
-        // SC : O(n * amount) + rec space
-        int n = coins.length;
-        int[][] dp = new int[n+1][amount+1];
+        // SC : O(n * amount)
+        int[][] dp = new int[coins.length+1][amount+1];
+
         for(int[] arr : dp){
             Arrays.fill(arr, -1);
         }
 
-        int ans = solve(0, coins, amount, dp);
-        return ans >= 1e8 ? -1 : ans;
+        int ans = solve(coins, 0, amount, dp);
+        return ans >= (int)(1e9) ? -1 : ans;
     }
 
-    public int solve(int i, int[] coins, int currAmount, int[][] dp){
-        // base case
-        if(currAmount == 0){
+    public int solve(int[] coins, int idx, int amount, int[][] dp){
+        if(amount < 0 || idx >= coins.length){
+            return (int)(1e9);
+        }
+        if(amount == 0){
             return 0;
         }
-        if(currAmount < 0 || i >= coins.length){
-            return (int)(1e8);
-        }
+        if(dp[idx][amount] != -1) return dp[idx][amount];
 
-        if(dp[i][currAmount] != -1) return dp[i][currAmount];
+        int take = 1 + solve(coins, idx, amount - coins[idx], dp);
 
-        int pick = 1 + solve(i, coins, currAmount - coins[i], dp);
-        int not_pick = 0 + solve(i+1, coins, currAmount, dp);
+        int not_take = 0 + solve(coins, idx+1, amount, dp);
 
-        return dp[i][currAmount] = Math.min(pick, not_pick);
+        return dp[idx][amount] = Math.min(take, not_take);
     }
 }
