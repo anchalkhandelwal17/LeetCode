@@ -1,6 +1,6 @@
 class Twitter {
 
-    private static class Tweet {
+    private class Tweet {
         int tweetId;
         int timeStamp;
 
@@ -22,7 +22,7 @@ class Twitter {
 
     public void postTweet(int userId, int tweetId) {
         if (userTweets.get(userId) == null) {
-            userTweets.put(userId, new LinkedList<>());
+            userTweets.put(userId, new ArrayList<>());
             follow(userId, userId);
         }
         userTweets.get(userId).add(0, new Tweet(tweetId, timeStamp++));
