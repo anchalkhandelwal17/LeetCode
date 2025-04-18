@@ -15,20 +15,15 @@
  */
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        // TC : O(n)
-        // SC : O(h)
-        dfs(root);
-        return root;
-    }
+        if (root == null)
+            return root;
 
-    public void dfs(TreeNode root){
-        if(root == null) return;
-
-        dfs(root.left);
-        dfs(root.right);
-
+        invertTree(root.left);
+        invertTree(root.right);
         TreeNode temp = root.left;
         root.left = root.right;
         root.right = temp;
+
+        return root;
     }
 }
