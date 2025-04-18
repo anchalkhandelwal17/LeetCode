@@ -1,38 +1,39 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-
-        List<List<Integer>> list = new ArrayList<>();
-
-        if(nums.length == 0){
-            return new ArrayList<>(list);
-        }
-
         Arrays.sort(nums);
 
-        for(int i=0; i<nums.length-2; i++){
-            if(i > 0 && nums[i] == nums[i-1])
-            continue;
-            int start = i+1;
-            int end = nums.length-1;
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        for(int i=0; i<n-2; i++){
+            if(i > 0 && nums[i] == nums[i-1]){
+                continue;
+            }
+            int j = i+1;
+            int k = n-1;
 
-            while(start < end){
-                if(nums[i] + nums[start] + nums[end] == 0){
-                    list.add(Arrays.asList(nums[i], nums[start++], nums[end--]));
-                    while(start < end && nums[start] == nums[start-1]){
-                        start++;
+            while(j < k){
+
+                int a = nums[i], b = nums[j], c = nums[k];
+                int sum = a + b + c;
+                if(sum == 0){
+                    ans.add(Arrays.asList(a, b, c));
+                    j++;
+                    k--;
+                    while(j < k && nums[j] == nums[j-1]){
+                        j++;
                     }
-                    while(start < end && nums[end] == nums[end+1]){
-                        end--;
+                    while(j < k && nums[k] == nums[k+1]){
+                        k--;
                     }
                 }
-                else if(nums[i] + nums[start] + nums[end] > 0){
-                    end--;
+                else if(sum > 0){
+                    k--;
                 }
-                else if(nums[i] + nums[start] + nums[end] < 0){
-                    start++;
+                else{
+                    j++;
                 }
             }
         }
-        return new ArrayList<>(list);
+        return ans;
     }
 }
