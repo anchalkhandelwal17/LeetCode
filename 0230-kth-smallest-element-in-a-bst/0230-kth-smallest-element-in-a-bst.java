@@ -15,20 +15,23 @@
  */
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-     
-        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        
-        kSmall(root, pq, k);
-        return pq.peek();
+        int[] cnt = new int[1];
+        int[] ans = new int[1];
+
+        dfs(root, k, cnt, ans);
+        return ans[0];
     }
-    
-    public void kSmall(TreeNode root, PriorityQueue<Integer> pq, int k){
+
+    public void dfs(TreeNode root, int k, int[] cnt, int[] ans){
         if(root == null) return;
-        
-        pq.offer(root.val);
-        if(pq.size() > k) pq.poll();
-        
-        kSmall(root.left, pq, k);
-        kSmall(root.right, pq, k);
+
+        dfs(root.left, k, cnt, ans);
+        cnt[0]++;
+
+        if(cnt[0] == k){
+            ans[0] = root.val;
+        }
+
+        dfs(root.right, k, cnt, ans);
     }
 }
