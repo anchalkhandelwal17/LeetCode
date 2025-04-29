@@ -1,24 +1,20 @@
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        // TC : O(n + n)
-        // SC : O(n + n)
+        // TC : O(n)
+        // SC : O(1)
         int n = temperatures.length;
         int[] ans = new int[n];
         Stack<int[]> st = new Stack<>();
-
         for(int i=n-1; i>=0; i--){
-            int val = temperatures[i];
-            while(!st.isEmpty() && st.peek()[1] <= val){
+            int temperature = temperatures[i];
+
+            while(!st.isEmpty() && st.peek()[0] <= temperature){
                 st.pop();
             }
-            if(st.isEmpty()) ans[i] = 0;
-            else ans[i] = st.peek()[0] - i;
 
-            st.push(new int[]{i, temperatures[i]});
+            ans[i] = st.isEmpty() ? 0 : st.peek()[1] - i;
+            st.push(new int[]{temperature, i});
         }
         return ans;
     }
 }
-
-// we can apply brute force to solve but that will be quadratic time coomplexity
-// to solve it in a better time complexity , stack can we be used
