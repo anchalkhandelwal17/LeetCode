@@ -1,27 +1,25 @@
 class Solution {
     public int jump(int[] nums) {
-        // TC : O(n)
-        // SC : O(1);
-
         int n = nums.length;
-        if(n <= 1) return 0;
-        int jumps = 0;
-        int maxReach = 0;
+        if(n == 1) return 0;
+        int reachAtIdx = n-1;
+        int minJumps = 0;
+        int maxJumpReach = 0;
         int timeToJump = 0;
-        for(int i=0; i<n; i++){
-            if(i > maxReach) return -1;
-            
-            maxReach = Math.max(maxReach, i + nums[i]);
 
-            if(i == timeToJump){
-                timeToJump = maxReach;
-                jumps++;
-                
-                if(timeToJump >= n-1){
-                    return jumps;
+        for(int i=0; i<n; i++){
+
+            maxJumpReach = Math.max(maxJumpReach, i + nums[i]);
+
+            if(timeToJump == i){
+                timeToJump = maxJumpReach;
+                minJumps++;
+
+                if(maxJumpReach >= reachAtIdx){
+                    return minJumps;
                 }
             }
         }
-        return jumps;
+        return minJumps;
     }
 }
