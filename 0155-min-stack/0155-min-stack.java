@@ -1,11 +1,9 @@
 class MinStack {
-    // TC : O(1)
-    // SC : O(n + n)
     Stack<int[]> st;
     int min;
     public MinStack() {
         st = new Stack<>();
-        min = Integer.MAX_VALUE;
+        this.min = Integer.MAX_VALUE;
     }
     
     public void push(int val) {
@@ -14,9 +12,10 @@ class MinStack {
     }
     
     public void pop() {
-        int[] val = st.pop();
-        if(val[1] == min){
-            min = st.isEmpty() ? Integer.MAX_VALUE : st.peek()[1];
+        int[] peek = st.pop();
+        if(peek[1] == min){
+            if(st.isEmpty()) min = Integer.MAX_VALUE;
+            else min = st.peek()[1];
         }
     }
     
