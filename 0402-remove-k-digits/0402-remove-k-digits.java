@@ -4,34 +4,33 @@ class Solution {
         // SC : O(n)
         int n = num.length();
         Stack<Integer> st = new Stack<>();
+        StringBuilder sb = new StringBuilder();
         for(int i=0; i<n; i++){
-            int val = num.charAt(i) - '0';
-            while(k > 0 && !st.isEmpty() && st.peek() > val){
-                k--;
+            int value = num.charAt(i) - '0';
+
+            while(!st.isEmpty() && k > 0 && st.peek() > value){
                 st.pop();
+                k--;
             }
-            st.push(val);
+            st.push(value);
         }
 
-        // if k is still > 0 remove vals from stack;
-        while(k > 0 && !st.isEmpty()){
+        while(!st.isEmpty() && k > 0){
             st.pop();
             k--;
         }
 
-        // ans creation
-        StringBuilder ans = new StringBuilder();
         while(!st.isEmpty()){
-            ans.append(st.pop());
+            sb.append(st.pop());
         }
 
-        // removing all the leading zeroes
-        for(int i=ans.length()-1; i>=0; i--){
-            if(ans.charAt(i) == '0'){
-                ans.deleteCharAt(i);
+        for(int i=sb.length()-1; i>=0; i--){
+            if(sb.charAt(i) == '0'){
+               sb.deleteCharAt(i);
             }
             else break;
         }
-        return ans.length() == 0 ? "0" : ans.reverse().toString();
+
+        return sb.length() == 0 ? "0" : sb.reverse().toString();
     }
 }
