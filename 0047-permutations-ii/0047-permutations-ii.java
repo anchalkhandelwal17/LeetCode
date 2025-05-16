@@ -2,30 +2,28 @@ class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
-        helper(nums, new ArrayList<>(), ans, new boolean[nums.length]);
+        solve(nums.length, nums, ans, new ArrayList<>(), new boolean[nums.length]);
+
         return ans;
     }
 
-
-    public void helper(int[] nums, List<Integer> temp, List<List<Integer>> ans, boolean[] flag){
-        // base condition
-        if(temp.size() == nums.length){
-            ans.add(new ArrayList<>(temp));
+    public void solve(int n, int[] nums, List<List<Integer>> ans, 
+    List<Integer> list, boolean[] vis){
+        if(list.size() == n){
+            ans.add(new ArrayList<>(list));
             return;
         }
-        else{
-             // generate all the possible unique permutations
-            for(int i=0; i<nums.length; i++){
-                if(flag[i]){
-                    continue;
-                }
-                if(i > 0 && nums[i] == nums[i-1] && !flag[i-1]) continue;
-                flag[i] = true;
-                temp.add(nums[i]);
-                helper(nums, temp, ans, flag);
-                temp.remove(temp.size()-1);
-                flag[i] = false;
-            }
+
+        for(int i=0; i<n; i++){
+            if(vis[i]) continue;
+
+            if(i > 0 && nums[i] == nums[i-1] && !vis[i-1]) continue;
+
+            list.add(nums[i]);
+            vis[i] = true;
+            solve(n, nums, ans, list, vis);
+            vis[i] = false;
+            list.remove(list.size()-1);
         }
     }
 }
