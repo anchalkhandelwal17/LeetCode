@@ -1,28 +1,21 @@
 class Solution {
-    int[] dp = new int[50];
-    {
+    public int climbStairs(int n) {
+        int[] dp = new int[n];
         Arrays.fill(dp, -1);
+        return solve(0, n, dp);
     }
 
-    public int climbStairs(int n) {
-        // TC : O(n)
-        // SC : O(n)
-        if (n == 0)
+    public int solve(int i, int n, int[] dp) {
+        if (i == n)
             return 1;
-        if (n < 0)
+        else if (i > n)
             return 0;
-        if (dp[n] != -1)
-            return dp[n];
+        if (dp[i] != -1)
+            return dp[i];
 
-        int oneStep = climbStairs(n - 1);
-        int twoStep = climbStairs(n - 2);
+        int one = solve(i + 1, n, dp);
+        int two = solve(i + 2, n, dp);
 
-        return dp[n] = oneStep + twoStep;
+        return dp[i] = one + two;
     }
 }
-
-// at a point i can take 1 step or 2
-// so here i have two choices at a particular point of time
-// take either a step 1 or take 2 
-// and if reached the top return 1 to the ans
-// now let's memoize this solution
