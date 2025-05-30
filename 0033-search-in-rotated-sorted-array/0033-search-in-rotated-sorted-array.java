@@ -1,23 +1,27 @@
 class Solution {
     public int search(int[] nums, int target) {
+        // TC : O(log n)
+        // SC : O(1)
         int lo = 0;
         int hi = nums.length-1;
+
         while(lo <= hi){
-            int m = (lo + hi) / 2;
+            int mid = (lo + hi) / 2;
 
-            if(nums[m] == target) return m;
-
-            else if(nums[lo] <= nums[m]){
-                if(target >= nums[lo] && target < nums[m]){
-                    hi = m-1;
+            if(nums[mid] == target){
+                return mid;
+            }
+            if(nums[mid] >= nums[lo]){
+                if(target >= nums[lo] && target < nums[mid]){
+                    hi = mid-1;
                 }
-                else lo = m+1;
+                else lo = mid+1;
             }
             else{
-                if(target > nums[m] && target <= nums[hi]){
-                    lo = m+1;
+                if(target > nums[mid] && target <= nums[hi]){
+                    lo = mid+1;
                 }
-                else hi = m-1;
+                else hi = mid-1;
             }
         }
         return -1;
