@@ -1,10 +1,11 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        // TC : O(n * max(str)log(str))
+        // TC : O(n * k)
         // SC : O(n * k)
         int n = strs.length;
+        HashMap<String, List<String>> map = new HashMap<>();
         List<List<String>> ans = new ArrayList<>();
-        Map<String, List<String>> map = new HashMap<>();
+
         for(int i=0; i<n; i++){
             String str = strs[i];
             char[] ch = str.toCharArray();
