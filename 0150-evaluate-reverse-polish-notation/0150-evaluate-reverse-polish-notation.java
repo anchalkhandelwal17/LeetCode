@@ -1,34 +1,38 @@
 class Solution {
     public int evalRPN(String[] tokens) {
+        // TC : O(n)
+        // SC : O(n)
+        int n = tokens.length;
         Stack<Integer> st = new Stack<>();
+        int[] arr;
+        for(int i=0; i<n; i++){
+            String str = tokens[i];
 
-        for(int i=0; i<tokens.length; i++){
-            int a;
-            int b;
-            if(tokens[i].equals("+")){
-                a = st.pop();
-                b = st.pop();
-                st.push(b + a);
+            if(str.equals("+")){
+                arr = topTwoVal(st);
+                st.push(arr[1] + arr[0]);
             }
-            else if(tokens[i].equals("-")){
-                a = st.pop();
-                b = st.pop();
-                st.push(b - a);
+            else if(str.equals("-")){
+                arr = topTwoVal(st);
+                st.push(arr[1] - arr[0]);
             }
-            else if(tokens[i].equals("*")){
-                a = st.pop();
-                b = st.pop();
-                st.push(b * a);
+            else if(str.equals("/")){
+                arr = topTwoVal(st);
+                st.push(arr[1] / arr[0]);
             }
-            else if(tokens[i].equals("/")){
-                a = st.pop();
-                b = st.pop();
-                st.push(b / a);
+            else if(str.equals("*")){
+                arr = topTwoVal(st);
+                st.push(arr[1] * arr[0]);
             }
-            else{
-                 st.push(Integer.parseInt(tokens[i]));
-            }
+            else st.push(Integer.valueOf(str));
         }
-        return st.pop();      
+        return st.pop();
+    }
+
+    public int[] topTwoVal(Stack<Integer> st){
+        int a = st.pop();
+        int b = st.pop();
+
+        return new int[]{a, b};
     }
 }
