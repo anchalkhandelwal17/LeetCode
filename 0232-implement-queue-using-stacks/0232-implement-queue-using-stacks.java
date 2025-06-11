@@ -1,35 +1,32 @@
 class MyQueue {
-
-    Stack<Integer> st1;
-    Stack<Integer> st2;
+    Stack<Integer> s1;
+    Stack<Integer> s2;
 
     public MyQueue() {
-        st1 = new Stack<>();
-        st2 = new Stack<>();
+        s1 = new Stack<>();
+        s2 = new Stack<>();
     }
     
     public void push(int x) {
-        st1.push(x);
+        while(!s1.isEmpty()){
+            s2.push(s1.pop());
+        }
+        s1.push(x);
+        while(!s2.isEmpty()){
+            s1.push(s2.pop());
+        }
     }
     
     public int pop() {
-        if(st2.isEmpty()){
-            peek();
-        }
-        return st2.pop();
+        return s1.pop();
     }
     
     public int peek() {
-        if(st2.isEmpty()){
-            while(!st1.isEmpty()){
-                st2.push(st1.pop());
-            }
-        }
-        return st2.peek();
+        return s1.peek();
     }
     
     public boolean empty() {
-        return st1.isEmpty() && st2.isEmpty();
+        return s1.isEmpty();
     }
 }
 
