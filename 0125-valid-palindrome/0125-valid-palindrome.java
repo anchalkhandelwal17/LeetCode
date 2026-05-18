@@ -1,21 +1,18 @@
 class Solution {
     public boolean isPalindrome(String s) {
-        // TC : O(m + n)
-        // SC : O(n)
-        int n = s.length();
-        StringBuilder sb = new StringBuilder();
-
-        for(int i=0; i<n; i++){
-            char c = s.charAt(i);
-            if(Character.isLetterOrDigit(c)){
-                sb.append(Character.toLowerCase(c));
-            }
-        }
         int i = 0;
-        int j = sb.length()-1;
+        int j = s.length() - 1;
+        int n = s.length();
 
-        while(i < j){
-            if(sb.charAt(i) != sb.charAt(j)){
+        while (i <= j) {
+            while (i < n && (s.charAt(i) == ' ' || !Character.isLetterOrDigit(s.charAt(i)))) {
+                i++;
+            }
+            while (j >= 0 && (s.charAt(j) == ' ' || !Character.isLetterOrDigit(s.charAt(j)))) {
+                j--;
+            }
+
+            if (i < j && Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j))) {
                 return false;
             }
             i++;
@@ -24,5 +21,3 @@ class Solution {
         return true;
     }
 }
-
-// Character.isLetterOrDigit()
