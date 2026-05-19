@@ -1,21 +1,32 @@
 class Solution {
     public int characterReplacement(String s, int k) {
-        // TC : O(n)
-        // SC : O(26)
         int n = s.length();
+        int i = 0;
+        int j = 0;
+        int[] freqMap = new int[26];
         int maxFreq = 0;
-        int maxLen = 0;
-        int[] freq = new int[26];
-        int i=0;
-        for(int j=0; j<n; j++){
-            maxFreq = Math.max(maxFreq, ++freq[s.charAt(j) - 'A']);
+        int ans = -1;
+
+        while(j < n){
+            char c = s.charAt(j);
+
+            freqMap[c - 'A']++;
+            maxFreq = Math.max(maxFreq, freqMap[c - 'A']);
 
             while(j - i + 1 - maxFreq > k){
-                --freq[s.charAt(i) - 'A'];
+                freqMap[s.charAt(i) - 'A']--;
                 i++;
             }
-            maxLen = Math.max(maxLen, j - i + 1);
+            ans = Math.max(ans, j-i+1);
+            j++;
         }
-        return maxLen;
+        return ans;
     }
 }
+
+// i = 0, j = 3
+// maxCharCount = 2, k = 2;
+// j - i + 1 - maxCharCount > k 
+// minimize the window until this upper condition is satisfied
+
+// 4 - 2 = 2 > k 
