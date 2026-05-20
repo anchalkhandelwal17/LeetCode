@@ -1,50 +1,49 @@
 class Solution {
     public String minWindow(String s, String t) {
-        // TC : O(m + n)
-        // SC : O(n)
-        int m = s.length();
-        int n = t.length();
-        if (m < n)
-            return "";
+        int n = s.length();
+        int m = t.length();
 
-        int size = Integer.MAX_VALUE;
-        int start = -1;
-        int end = -1;
-        int cnt = 0;
-        int i = 0;
-        HashMap<Character, Integer> map = new HashMap<>();
-        for(int k=0; k<n; k++){
-            map.put(t.charAt(k), map.getOrDefault(t.charAt(k), 0)+1);
+        int[] sMap = new int[256];
+        int[] tMap = new int[256];
+
+        for(int i=0; i<t.length(); i++){
+            tMap[t.charAt(i) - '0']++;
         }
 
-        for(int j=0; j<m; j++){
-            if(map.containsKey(s.charAt(j))){
-                map.put(s.charAt(j), map.getOrDefault(s.charAt(j), 0)-1);
+        int i = 0;
+        int j = 0;
+        int ans = Integer.MAX_VALUE;
+        int ansIIdx = -1;
+        int ansJIdx = -1;
+       
 
-                if(map.get(s.charAt(j)) >= 0){
-                    cnt++;
+        while(j < n){
+            sMap[s.charAt(j) - '0']++;
+
+            while(check(sMap, tMap)){
+                if(ans > j-i+1){
+                    ans = j-i+1;
+                    ansIIdx = i;
+                    ansJIdx = j;
                 }
-            }
-
-            while(cnt == n){
-
-                if(j - i + 1 < size){
-                    size = j - i + 1;
-                    start = i;
-                    end = j;
-                }
-
-                if(map.containsKey(s.charAt(i))){
-                     map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
-
-                     if(map.get(s.charAt(i)) > 0){
-                        cnt--;
-                     }
-                }
-
+                sMap[s.charAt(i) - '0']--;
                 i++;
             }
+            j++;
         }
-        return size == Integer.MAX_VALUE ? "" : s.substring(start, end+1);
+        return ansJIdx == -1 ? "" : s.substring(ansIIdx, ansJIdx+1);
+    }
+
+    public boolean check(int[] arr1, int[] arr2) {
+        // arr1 -> s
+        // arr2 -> t
+        for (int i = 0; i < 256; i++) {
+            if (arr2[i] != 0 && arr1[i] < arr2[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
+
+// 
