@@ -16,11 +16,11 @@ class Solution {
             int rem = nums[i] % k;
             if(i%2 == 0){
                 // x
-                ops += Math.min(Math.abs(rem - x), k - Math.abs(rem - x));
+                ops += Math.abs(rem - x);
             }
             else{
                 // y
-                ops += Math.min(Math.abs(rem - y), k - Math.abs(rem - y));
+                ops += Math.abs(rem - y);
             }
         }
         return ops;
