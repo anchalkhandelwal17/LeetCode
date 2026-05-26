@@ -1,21 +1,34 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-        // TC : O(log(m * n))
         int m = matrix.length;
         int n = matrix[0].length;
 
-        int start = 0;
-        int end = n-1;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(target >= matrix[i][0] && target <= matrix[i][n-1]){
+                    if(check(matrix, target, i)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean check(int[][] matrix, int target, int row){
+        int lo = 0;
+        int hi = matrix[0].length-1;
 
-        while(start < m && end > -1){
-            int val = matrix[start][end];
+        while(lo <= hi){
+            int mid = (lo + hi) / 2;
 
-            if(val == target) return true;
-            else if(val > target){
-                end--;
+            if(matrix[row][mid] == target){
+                return true;
+            }
+            else if(target > matrix[row][mid]){
+                lo = mid+1;
             }
             else{
-                start++;
+                hi = mid-1;
             }
         }
         return false;
