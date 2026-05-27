@@ -1,7 +1,5 @@
 class Solution {
     public int search(int[] nums, int target) {
-        // TC : O(log n)
-        // SC : O(1)
         int lo = 0;
         int hi = nums.length-1;
 
@@ -11,7 +9,7 @@ class Solution {
             if(nums[mid] == target){
                 return mid;
             }
-            if(nums[mid] >= nums[lo]){
+            if(nums[lo] <= nums[mid]){
                 if(target >= nums[lo] && target < nums[mid]){
                     hi = mid-1;
                 }
