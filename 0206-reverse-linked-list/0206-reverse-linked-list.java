@@ -10,8 +10,6 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        // TC : O(n)
-        // SC : O(n)
         if(head == null) return head;
         ListNode prev = null;
         ListNode curr = head;
@@ -25,8 +23,6 @@ class Solution {
                 next = next.next;
             }
         }
-        
         return prev;
-
     }
 }
