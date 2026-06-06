@@ -1,51 +1,37 @@
 class Solution {
     public String longestPalindrome(String s) {
-        
-        // expanding from the centres and checking , O(n ^ 2) solutioin.
+        int n = s.length();
+        int maxLen = -1;
+        String ans = "";
 
-        int resLen = 0;
-    
-    //    String res = "";
+        for (int i = 0; i < n; i++) {
 
-        int res_l = 0;
-        int res_r = 0;
+            int j = i;
+            int k = i;
 
-        for(int i=0; i<s.length(); i++){
-
-            // odd length
-
-            int l = i;
-            int r = i;
-
-            while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)){
-                if(r - l + 1 > resLen){
-               //     res = s.substring(l, r+1);
-                    res_l = l;
-                    res_r = r;
-                    resLen = r-l+1;
+            while (j >= 0 && k < n && s.charAt(j) == s.charAt(k)) {
+                if (maxLen < k - j + 1) {
+                    maxLen = k - j + 1;
+                    ans = s.substring(j, k + 1);
                 }
-                l--;
-                r++;
+                j--;
+                k++;
             }
 
-            // even length
+            j = i;
+            k = i + 1;
 
-            l = i;
-            r = i+1;
-
-            while(l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)){
-                if(r - l + 1 > resLen){
-              //      res = s.substring(l, r+1);
-                    res_l = l;
-                    res_r = r;
-                    resLen = r-l+1;
+            while (j >= 0 && k < n && s.charAt(j) == s.charAt(k)) {
+                if (maxLen < k - j + 1) {
+                    maxLen = k - j + 1;
+                    ans = s.substring(j, k + 1);
                 }
-                l--;
-                r++;
+                j--;
+                k++;
             }
-
         }
-
-        return s.substring(res_l, res_r+1);
+        return ans;
     }
 }
+
+// j-i+1
