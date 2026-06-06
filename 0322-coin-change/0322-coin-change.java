@@ -1,30 +1,32 @@
 class Solution {
     public int coinChange(int[] coins, int amount) {
-        // TC : O(n * amount)
-        // SC : O(n * amount)
+        if(amount == 0) return 0;
         int[][] dp = new int[coins.length+1][amount+1];
 
         for(int[] arr : dp){
             Arrays.fill(arr, -1);
         }
 
-        int ans = solve(coins, 0, amount, dp);
-        return ans >= (int)(1e9) ? -1 : ans;
+        int ans = solve(coins, coins.length-1, amount, dp);
+        return ans >= (int)(1e8) ? -1 : ans;
     }
 
-    public int solve(int[] coins, int idx, int amount, int[][] dp){
-        if(amount < 0 || idx >= coins.length){
-            return (int)(1e9);
+    public int solve(int[] coins, int i, int amount, int[][] dp){
+        // base case
+        if(i < 0 || amount < 0){
+            return (int)(1e8);
         }
         if(amount == 0){
             return 0;
         }
-        if(dp[idx][amount] != -1) return dp[idx][amount];
 
-        int take = 1 + solve(coins, idx, amount - coins[idx], dp);
+        if(dp[i][amount] != -1){
+            return dp[i][amount];
+        }
 
-        int not_take = 0 + solve(coins, idx+1, amount, dp);
+        int take = 1 + solve(coins, i, amount - coins[i], dp);
+        int not_take = 0 + solve(coins, i-1, amount, dp);
 
-        return dp[idx][amount] = Math.min(take, not_take);
+        return dp[i][amount] = Math.min(take, not_take);
     }
 }
