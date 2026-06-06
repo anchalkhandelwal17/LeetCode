@@ -1,35 +1,29 @@
 class Solution {
     public boolean canPartition(int[] nums) {
-        // TC : quadratic
-        // SC : O(n * sum/2)
+        Arrays.sort(nums);
         int sum = 0;
         for(int x : nums) sum += x;
+        if(sum % 2 == 1) return false;
+        int n = nums.length;
+        Boolean[][] dp = new Boolean[n][sum / 2 + 5];
 
-        if(sum % 2 != 0) return false;
-        Boolean[][] dp = new Boolean[nums.length+2][sum/2+2];
-
-        return solve(0, nums, 0, sum, dp);
+        return solve(nums, nums.length-1, sum / 2, dp);
     }
 
-    public boolean solve(int i, int[] nums, int currSum, int sum, Boolean[][] dp){
-        if(currSum - sum == 0) return true;
-        if(i >= nums.length || currSum > sum) return false;
-        if(dp[i][currSum] != null) return dp[i][currSum];
-
-        boolean not_take = solve(i+1, nums, currSum, sum, dp);
-        boolean take = false;
-
-        if(currSum <= sum){
-            take = solve(i+1, nums, currSum + nums[i], sum - nums[i], dp);
+    public boolean solve(int[] nums, int i, int sum, Boolean[][] dp){
+        // base case
+        if(i < 0 || sum < 0){
+            return false;
         }
+        if(sum == 0){
+            return true;
+        }
+        if(dp[i][sum] != null) return dp[i][sum];
 
-        return dp[i][currSum] = take || not_take;
+        boolean take = solve(nums, i-1, sum - nums[i], dp);
+
+        boolean not_take = solve(nums, i-1, sum, dp);
+
+        return dp[i][sum] = take || not_take;
     }
 }
-
-// if the sum of the elem of nums is odd then
-// no matter what we do we won't be able to partition the array
-// but if the sum is even then we may or may not partition the array
-// f(i, currSum, sum) = take || not_take
-// no. of changing parameters are three in recursion
-// so we will be having in total 3 states
