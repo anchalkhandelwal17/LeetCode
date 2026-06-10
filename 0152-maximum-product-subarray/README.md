@@ -1,6 +1,8 @@
-<h2><a href="https://leetcode.com/problems/maximum-product-subarray/">152. Maximum Product Subarray</a></h2><h3>Medium</h3><hr><p>Given an integer array <code>nums</code>, find a <span data-keyword="subarray-nonempty">subarray</span> that has the largest product, and return <em>the product</em>.</p>
+<h2><a href="https://leetcode.com/problems/maximum-product-subarray">152. Maximum Product Subarray</a></h2><h3>Medium</h3><hr><p>Given an integer array <code>nums</code>, find a <span data-keyword="subarray-nonempty">subarray</span> that has the largest product, and return <em>the product</em>.</p>
 
 <p>The test cases are generated so that the answer will fit in a <strong>32-bit</strong> integer.</p>
+
+<p><strong>Note</strong> that the product of an array with a single element is the value of that element.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
@@ -25,5 +27,5 @@
 <ul>
 	<li><code>1 &lt;= nums.length &lt;= 2 * 10<sup>4</sup></code></li>
 	<li><code>-10 &lt;= nums[i] &lt;= 10</code></li>
-	<li>The product of any prefix or suffix of <code>nums</code> is <strong>guaranteed</strong> to fit in a <strong>32-bit</strong> integer.</li>
+	<li>The product of any subarray of <code>nums</code> is <strong>guaranteed</strong> to fit in a <strong>32-bit</strong> integer.</li>
 </ul>
