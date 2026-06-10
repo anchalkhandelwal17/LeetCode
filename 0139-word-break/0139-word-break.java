@@ -1,35 +1,34 @@
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        // TC : O(n^2)
-        // SC : O(n + m*k)
+        int n = wordDict.size();
         HashSet<String> set = new HashSet<>();
-        for(int i=0; i<wordDict.size(); i++){
-            String str = wordDict.get(i);
-            set.add(str);
+        HashMap<Integer, Boolean> dp = new HashMap<>();
+        for(int i=0; i<n; i++){
+            set.add(wordDict.get(i));
         }
 
-        HashMap<Integer, Boolean> map = new HashMap<>();
-        return solve(set, s, 0, map);
+        return solve(s, 0, set, dp);
     }
 
-    public boolean solve(HashSet<String> set, String s, int i, HashMap<Integer, Boolean> map) {
-        if(i == s.length()){
+    public boolean solve(String s, int idx, HashSet<String> set, HashMap<Integer, Boolean> dp){
+        // base case
+        if(idx >= s.length()){
             return true;
         }
-        if(map.containsKey(i)){
-            return map.get(i);
+
+        if(dp.containsKey(idx)){
+            return dp.get(idx);
         }
 
-        for(int idx=i; idx<s.length(); idx++){
-            String subStr = s.substring(i, idx+1);
-            if(set.contains(subStr)){
-                if(solve(set, s, idx+1, map)){
-                    map.put(i, true);
+        for(int i=idx; i<s.length(); i++){
+            if(set.contains(s.substring(idx, i+1))){
+                if(solve(s, i+1, set, dp)){
                     return true;
                 }
             }
         }
-        map.put(i, false);
+
+        dp.put(idx, false);
         return false;
     }
 }
