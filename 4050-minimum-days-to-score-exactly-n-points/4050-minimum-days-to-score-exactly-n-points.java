@@ -1,7 +1,7 @@
 class Solution {
     public int minDays(int n) {
         if(n == 1) return n;
-        int[][] dp = new int[450][n+1];
+        int[][] dp = new int[550][n+1];
         for(int[] arr : dp){
             Arrays.fill(arr, -1);
         }
