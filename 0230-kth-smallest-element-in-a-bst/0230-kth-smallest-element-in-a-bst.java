@@ -18,20 +18,20 @@ class Solution {
         int[] cnt = new int[1];
         int[] ans = new int[1];
 
-        dfs(root, k, cnt, ans);
+        kthSmallest(root, k, cnt, ans);
         return ans[0];
     }
 
-    public void dfs(TreeNode root, int k, int[] cnt, int[] ans){
-        if(root == null) return;
+    public void kthSmallest(TreeNode root, int k, int[] cnt, int[] ans){
+        if(root == null){
+            return;
+        }
 
-        dfs(root.left, k, cnt, ans);
+        kthSmallest(root.left, k, cnt, ans);
         cnt[0]++;
-
         if(cnt[0] == k){
             ans[0] = root.val;
         }
-
-        dfs(root.right, k, cnt, ans);
+        kthSmallest(root.right, k, cnt, ans);
     }
 }
