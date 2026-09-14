@@ -18,21 +18,24 @@ class Solution {
         if(root == null){
             return false;
         }
+
         if(root.val == subRoot.val){
-            if(isSame(root, subRoot)){
+            if(isSameTree(root, subRoot)){
                 return true;
             }
         }
+
         return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
     }
 
-    public boolean isSame(TreeNode a, TreeNode b){
-        if(a == null || b == null){
-            if(a == b) return true;
-            return false;
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null || q == null) {
+            return p == q;
         }
 
-        if(a.val != b.val) return false;
-        return isSame(a.left, b.left) && isSame(a.right, b.right);
+        if (p.val == q.val) {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
+        return false;
     }
 }
