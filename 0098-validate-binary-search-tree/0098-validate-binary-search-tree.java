@@ -15,15 +15,16 @@
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        // TC : O(n)
-        // SC : O(h)
-        return solve(root, Long.MIN_VALUE, Long.MAX_VALUE);
+        return dfs(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-    public boolean solve(TreeNode root, long minVal, long maxVal){
-        if(root == null) return true;
+    public boolean dfs(TreeNode root, long minVal, long maxVal){
+        if(root == null){
+            return true;
+        }
+
         if(root.val <= minVal || root.val >= maxVal){
             return false;
         }
-        return solve(root.left, minVal, root.val) && solve(root.right, root.val, maxVal);
+        return dfs(root.left, minVal, root.val) && dfs(root.right, root.val, maxVal);
     }
 }
